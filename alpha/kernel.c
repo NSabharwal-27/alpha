@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-volatile uint8_t *uart = (uin8t *) 0x9000000;
+volatile uint8_t *uart = (uint8_t*) 0x09000000;
 
 void putchar(char c) {
 	*uart = c;
