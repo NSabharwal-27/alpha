@@ -1,6 +1,6 @@
 .global _start
 _start:
-	ldr x30, =stack_top
-	mov sp, x30
+	ldr x9, =stack_top
+	mov sp, x9
 	bl kmain
 	b .
