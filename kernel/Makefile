@@ -16,7 +16,8 @@ ARCHDIR ?= ./arch/aarch64
 all: kernel.c
 	$(AS) $(ARCHDIR)/boot.s -o boot.o
 	$(CC) -ffreestanding -c kernel.c -o kernel.o
-	$(LD) -nostdlib -T$(ARCHDIR)/linker.ld boot.o kernel.o -o kernel.elf
+	$(CC) -ffreestanding -c ./uart/uart.c -o uart.o
+	$(LD) -nostdlib -T$(ARCHDIR)/linker.ld boot.o uart.o kernel.o -o kernel.elf
 
 clean:
 	rm *.o *.elf
