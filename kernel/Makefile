@@ -1,17 +1,31 @@
 # Custom cross compilers that we built using the cross-compiler script
 # The location of these is setup in that script so adjust as necessary.
 
-aarch: CC = ~/opt/cross/bin/aarch64-none-elf-gcc
-aarch: AS = ~/opt/cross/bin/aarch64-none-elf-as
-aarch: LD = ~/opt/cross/bin/aarch64-none-elf-ld
+CROSS		?= aarch64-none-elf
+CROSS_SRC	?= ~/opt/cross/bin
 
-# TODO: remove ./arch/aarch64/ and replace with $(ARCHDIR)
+CC = $(CROSS_SRC)/$(CROSS)-gcc
+AS = $(CROSS_SRC)/$(CROSS)-as
+LD = $(CROSS_SRC)/$(CROSS)-ld
+
+ARCHDIR ?= ./arch/aarch64
+
+# TODO:
 # Seperate each of the commands for seperate rules too, maybe?
 # This needs to be cleaner, need to figure out how.
-aarch: kernel.c
-	$(AS) ./arch/aarch64/boot.s -o boot.o 
+all: kernel.c
+	$(AS) $(ARCHDIR)/boot.s -o boot.o
 	$(CC) -ffreestanding -c kernel.c -o kernel.o
-	$(LD) -nostdlib -T./arch/aarch64/linker.ld boot.o kernel.o -o kernel.elf
+	$(LD) -nostdlib -T$(ARCHDIR)/linker.ld boot.o kernel.o -o kernel.elf
 
 clean:
 	rm *.o *.elf
+
+run:
+	qemu-system-aarch64 \
+	-machine virt \
+	-cpu cortex-a57 \
+	-nographic \
+	-kernel kernel.elf
+
+.PHONY: all clean run
