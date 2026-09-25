@@ -5,7 +5,7 @@
  */
 void uart_init(void){
 	/* Disable the MMIO first. */
-	UART_ACCESS_REG(UARTCR) = 0;
+	UART_ACCESS_REG(UARTCR) = UARTCR_DA;
 
 	/*
 	 * QEMU virt defines the baud rate for the serial console to be
@@ -17,4 +17,6 @@ void uart_init(void){
 	 */
 	UART_ACCESS_REG(UARTIBRD) = 13;
 	UART_ACCESS_REG(UARTFBRD) = 0;
+
+	UART_ACCESS_REG(UARTCR) = UARTCR_EN | UARTCR_TXE | UARTCR_RXE;
 }

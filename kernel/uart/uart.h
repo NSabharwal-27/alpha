@@ -38,6 +38,12 @@
 #define UARTLCR_H	0x02C
 #define UARTCR		0x030
 
+/* Control register bits */
+#define UARTCR_EN	(1)	/* enable */
+#define UARTCR_DA	(0)	/* disable */
+#define UARTCR_TXE	(1 << 8)
+#define UARTCR_RXE	(1 << 9)
+
 #define UART_ACCESS_REG(offset) \
 		(*(volatile uint32_t *)(UART_BASE_ADDR + (offset)))
 
