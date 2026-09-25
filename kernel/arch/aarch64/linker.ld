@@ -1,11 +1,23 @@
 ENTRY(_start)
 SECTIONS {
-	. = 0x40100000;
-	.startup . : { boot.o(.text) }
-	.text : { *(.text) }
+	/* RAM starts at 0x4000_0000 */
+	. = 0x40000000;
+
+	.text : { 
+		*.(.text.boot)
+		*.(.text)
+	}
+
 	.data : { *(.data) }
-	.bss : { *(.bss COMMON) }
+
+	.bss : {
+		__bss_start = .;
+		*(.bss)
+		__bss_end = .;
+	}
+
+	/* Align the stack, 4KB alignment */
 	. = ALIGN(16);
-	. += 0x1000;
-	stack_top = .;
+	. += 4096;
+	_stack_top = .;	
 }
