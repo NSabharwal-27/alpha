@@ -40,5 +40,4 @@ void uart_puts(const char *str){
 	while(*str){
 		uart_putc(*str++);
 	}
-	return;
 }

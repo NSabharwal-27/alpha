@@ -58,5 +58,6 @@
 void uart_init();
 void uart_putc(const char c);
 void uart_puts(const char *str);
+void kprintf(const char *str);
 
 #endif /* UART_H */
