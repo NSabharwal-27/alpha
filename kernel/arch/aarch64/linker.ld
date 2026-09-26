@@ -8,7 +8,11 @@ SECTIONS {
 		*.(.text)
 	}
 
+	. = ALIGN(8);
 	.data : { *(.data) }
+
+	. = ALIGN(8);
+	.rodata : { *(.rodata) }
 
 	/* 
 	 * We can do 16-byte or 8-byte alignment,
