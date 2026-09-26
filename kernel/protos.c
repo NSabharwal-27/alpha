@@ -3,5 +3,5 @@
 
 void kmain(void) {
 	uart_init();
-	uart_puts("Hello World!\n");
+	kprintf("Hello World!\n");
 }

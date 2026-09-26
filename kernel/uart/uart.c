@@ -41,3 +41,7 @@ void uart_puts(const char *str){
 		uart_putc(*str++);
 	}
 }
+
+void kprintf(const char *str){
+	uart_puts(str);
+}
