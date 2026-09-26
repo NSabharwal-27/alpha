@@ -13,11 +13,11 @@ ARCHDIR ?= ./arch/aarch64
 # TODO:
 # Seperate each of the commands for seperate rules too, maybe?
 # This needs to be cleaner, need to figure out how.
-all: kernel.c
+all: protos.c
 	$(AS) $(ARCHDIR)/boot.s -o boot.o
-	$(CC) -ffreestanding -c kernel.c -o kernel.o
+	$(CC) -ffreestanding -c protos.c -o protos.o
 	$(CC) -ffreestanding -c ./uart/uart.c -o uart.o
-	$(LD) -nostdlib -T$(ARCHDIR)/linker.ld boot.o uart.o kernel.o -o kernel.elf
+	$(LD) -nostdlib -T$(ARCHDIR)/linker.ld boot.o uart.o protos.o -o protos.elf
 
 clean:
 	rm *.o *.elf
@@ -27,6 +27,6 @@ run:
 	-machine virt \
 	-cpu cortex-a57 \
 	-nographic \
-	-kernel kernel.elf
+	-kernel protos.elf
 
 .PHONY: all clean run
