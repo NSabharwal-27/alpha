@@ -7,6 +7,7 @@ CROSS_SRC	?= ~/opt/cross/bin
 CC = $(CROSS_SRC)/$(CROSS)-gcc
 AS = $(CROSS_SRC)/$(CROSS)-as
 LD = $(CROSS_SRC)/$(CROSS)-ld
+RE = $(CROSS_SRC)/$(CROSS)-readelf
 
 ARCHDIR ?= ./arch/aarch64
 
@@ -28,5 +29,7 @@ run:
 	-cpu cortex-a57 \
 	-nographic \
 	-kernel protos.elf
+sym:
+	$(RE) -s protos.elf
 
-.PHONY: all clean run
+.PHONY: all clean run sym
