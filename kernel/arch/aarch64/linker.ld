@@ -25,11 +25,11 @@ SECTIONS {
 
 	/* Align the stack, 16-byte alignment */
 	. = ALIGN(16);
-	_stack_top = .;
+	_stack_end = .;
 	/* 
 	 * Reserve 16KB for the stack, we know
 	 * it's already aligned.
 	 */
 	. += 0x4000;
-	_stack_end = .;
+	_stack_top = .;
 }
